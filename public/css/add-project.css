@@ -1,0 +1,12 @@
+.add {
+  display: flex !important;
+  justify-content: end !important;
+  border: none !important;
+  padding: 5px 15px !important;
+  border-radius: 10px !important;
+  background-color: rgb(33, 37, 41) !important;
+}
+
+.add:hover {
+  background-color: orangered !important;
+}

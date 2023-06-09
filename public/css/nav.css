@@ -1,0 +1,19 @@
+.navbar {
+  background-color: #f4f3f3 !important;
+}
+
+.navbar-collapse {
+  justify-content: center !important;
+}
+
+.center {
+  justify-content: center !important;
+}
+
+.text-center:hover {
+  color: orangered !important;
+}
+
+.text-white:hover {
+  background-color: orangered !important;
+}
