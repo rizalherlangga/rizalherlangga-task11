@@ -65,7 +65,7 @@
     </nav>
 
     <div class="container">
-      <h1 class="text-center mb-5 mt-5">Dumbways Web App</h1>
+      <h1 class="text-center mb-5 mt-5">{{.Project.Title}}</h1>
       <div class="main">
         <div class="konteks d-flex mb-5">
           <div class="card-right w-75 me-4">
@@ -77,41 +77,58 @@
           </div>
           <div class="card-left w-25">
             <div class="left1">
-              <h6>{{.Title}}</h6>
+              <h6>Duration</h6>
               <div class="date d-flex">
                 <i class="fa-solid fa-calculator me-2 mt-1"></i>
-                <p>12 Jan 2021 - 11 Feb 2021</p>
+                <p>{{.Project.Start}} - {{.Project.End}}</p>
               </div>
               <div class="clock d-flex">
                 <i class="fa-regular fa-clock me-2 mt-1"></i>
-                <p>1 month</p>
+                <p>{{.Project.Duration}}</p>
               </div>
             </div>
             <div class="left2">
               <h6>Technologies</h6>
               <div class="tc-1 d-flex">
-                <div class="react d-flex me-4">
-                  <i class="fa-brands fa-react me-2 mt-1"></i>
-                  <p>React Js</p>
+                {{range .Project.Tech}} {{if eq . "js"}}
+                <div class="js d-flex me-4 gap-2">
+                  <img
+                    src="../public/assets/java-script.svg"
+                    alt="js"
+                    style="width: 30px"
+                  />
+                  <p style="margin-top: 10px">Js</p>
                 </div>
-                <div class="node d-flex">
-                  <i class="fa-brands fa-node-js mt-1 me-2"></i>
-                  <p>Node Js</p>
+                {{else if eq . "bootstrap"}}
+                <div class="bootstrap d-flex">
+                  <img
+                    src="../public/assets/images/bootstrap.svg"
+                    alt="bootstrap"
+                    style="width: 30px"
+                  />
+                  <p style="margin-top: 10px">Bootstrap</p>
                 </div>
               </div>
+              {{else if eq . "golang"}}
               <div class="tc-2 d-flex">
-                <div class="js d-flex me-2">
-                  <i class="fa-brands fa-square-js me-2 mt-1"></i>
-                  <p>JavaScript</p>
-                </div>
-                <div class="io d-flex me-2">
+                <div class="golang d-flex me-2 gap-2">
                   <img
-                    src="../public/assets/images/socket-dot-io.svg "
-                    alt="socket"
-                    class="me-2 mb-3"
+                    src="../public/assets/images/golang-1.svg"
+                    alt="golang"
+                    style="width: 30px"
                   />
-                  <p>socket io</p>
+                  <p style="margin-top: 10px">Golang</p>
                 </div>
+                {{else if eq . "react"}}
+                <div class="react d-flex me-2 gap-2">
+                  <img
+                    src="../public/assets/images/react.svg "
+                    alt="socket"
+                    style="width: 30px"
+                  />
+                  <p style="margin-top: 10px">React</p>
+                </div>
+                {{end}} {{end}}
               </div>
             </div>
           </div>
@@ -119,93 +136,12 @@
       </div>
       <div class="about">
         <div class="isi">
-          <p>{{.Content}}</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-            distinctio quasi voluptas magnam omnis sapiente eaque veniam beatae,
-            delectus voluptatum totam enim optio expedita nesciunt? Quisquam
-            temporibus ipsam reprehenderit sed ratione aperiam, fugit a, tempora
-            asperiores perspiciatis autem praesentium iure optio repellendus
-            recusandae aliquid rem illum distinctio totam? Repellat, animi.
-            Corporis, optio voluptate labore nihil ab sed modi atque neque ex
-            sapiente dicta fugit, cupiditate vero in dolore adipisci unde?
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore,
-            nemo praesentium! Veritatis ipsam quibusdam alias culpa odio
-            aliquid, laudantium eum! Aperiam accusamus non cumque tenetur saepe
-            numquam facilis similique aliquam maiores, hic blanditiis
-            repudiandae illo perferendis ipsa impedit voluptas voluptatum vero
-            eos! Architecto sed veniam ipsam, blanditiis ipsa, sit illo unde
-            explicabo, deleniti quae facere mollitia voluptatem illum voluptates
-            reprehenderit.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-            vero pariatur praesentium. Totam quos amet nostrum error dignissimos
-            odit ipsum enim iste neque libero delectus quo consequatur minima,
-            veniam alias est ducimus atque sed. Esse neque modi maiores! Nostrum
-            architecto sed odit officiis dicta! Odit suscipit eius dolores
-            similique eaque, explicabo inventore cum velit quod autem aperiam,
-            ipsa sed fugit aut illo fugiat error neque veritatis iste quidem
-            blanditiis doloribus. Autem, aliquid. Rerum omnis est dolore porro,
-            earum illo nostrum.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-            vero pariatur praesentium. Totam quos amet nostrum error dignissimos
-            odit ipsum enim iste neque libero delectus quo consequatur minima,
-            veniam alias est ducimus atque sed. Esse neque modi maiores! Nostrum
-            architecto sed odit officiis dicta! Odit suscipit eius dolores
-            similique eaque, explicabo inventore cum velit quod autem aperiam,
-            ipsa sed fugit aut illo fugiat error neque veritatis iste quidem
-            blanditiis doloribus. Autem, aliquid. Rerum omnis est dolore porro,
-            earum illo nostrum.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-            vero pariatur praesentium. Totam quos amet nostrum error dignissimos
-            odit ipsum enim iste neque libero delectus quo consequatur minima,
-            veniam alias est ducimus atque sed. Esse neque modi maiores! Nostrum
-            architecto sed odit officiis dicta! Odit suscipit eius dolores
-            similique eaque, explicabo inventore cum velit quod autem aperiam,
-            ipsa sed fugit aut illo fugiat error neque veritatis iste quidem
-            blanditiis doloribus. Autem, aliquid. Rerum omnis est dolore porro,
-            earum illo nostrum.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-            vero pariatur praesentium. Totam quos amet nostrum error dignissimos
-            odit ipsum enim iste neque libero delectus quo consequatur minima,
-            veniam alias est ducimus atque sed. Esse neque modi maiores! Nostrum
-            architecto sed odit officiis dicta! Odit suscipit eius dolores
-            similique eaque, explicabo inventore cum velit quod autem aperiam,
-            ipsa sed fugit aut illo fugiat error neque veritatis iste quidem
-            blanditiis doloribus. Autem, aliquid. Rerum omnis est dolore porro,
-            earum illo nostrum.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-            vero pariatur praesentium. Totam quos amet nostrum error dignissimos
-            odit ipsum enim iste neque libero delectus quo consequatur minima,
-            veniam alias est ducimus atque sed. Esse neque modi maiores! Nostrum
-            architecto sed odit officiis dicta! Odit suscipit eius dolores
-            similique eaque, explicabo inventore cum velit quod autem aperiam,
-            ipsa sed fugit aut illo fugiat error neque veritatis iste quidem
-            blanditiis doloribus. Autem, aliquid. Rerum omnis est dolore porro,
-            earum illo nostrum.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda
-            vero pariatur praesentium. Totam quos amet nostrum error dignissimos
-            odit ipsum enim iste neque libero delectus quo consequatur minima,
-            veniam alias est ducimus atque sed. Esse neque modi maiores! Nostrum
-            architecto sed odit officiis dicta! Odit suscipit eius dolores
-            similique eaque, explicabo inventore cum velit quod autem aperiam,
-            ipsa sed fugit aut illo fugiat error neque veritatis iste quidem
-            blanditiis doloribus. Autem, aliquid. Rerum omnis est dolore porro,
-            earum illo nostrum.
-          </p>
+          <p>{{.Project.Description}}</p>
+          <p>{{.Project.Description}}</p>
+          <p>{{.Project.Description}}</p>
+          <p>{{.Project.Description}}</p>
+          <p>{{.Project.Description}}</p>
+          <p>{{.Project.Description}}</p>
         </div>
       </div>
     </div>
