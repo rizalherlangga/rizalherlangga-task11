@@ -7,47 +7,53 @@ import (
 	"strings"
 	"text/template"
 	"time"
+	"TASK11/connection"
+	"context"
 
 	"github.com/labstack/echo/v4"
 )
 
+
 type project struct {
+	Id          int
 	Title       string
-	Start       string
-	End         string
+	Start       time.Time
+	End         time.Time
 	Duration    string
 	Description string
 	Tech        []string
 }
 
 var dataProject = []project{
-	{
-		Title:       "FAKTA BANGET NICH !",
-		Start:       "24/06/2023",
-		End:         "27/06/2023",
-		Duration:    "3 hari",
-		Description: "MAU TAU FAKTA GA BRO ? RAHASIA DAPUR NIH !",
-		Tech:        []string{"js"},
-	},
-	{
-		Title:       "GOKIL SIH INI CUY !",
-		Start:       "24/06/2023",
-		End:         "27/06/2023",
-		Duration:    "3 hari",
-		Description: "LU KEREN GUA KEREN, KITA BERDUA ? KEREN !",
-		Tech:        []string{"js"},
-	},
-	{
-		Title:       "AZEEEEKKKK !",
-		Start:       "24/06/2023",
-		End:         "27/06/2023",
-		Duration:    "3 hari",
-		Description: "WAHHH GOKIL PISAN NIH KEKNYA !",
-		Tech:        []string{"js"},
-	},
+	// {
+	// 	Title:       "FAKTA BANGET NICH !",
+	// 	Start:       "24/06/2023",
+	// 	End:         "27/06/2023",
+	// 	Duration:    "3 hari",
+	// 	Description: "MAU TAU FAKTA GA BRO ? RAHASIA DAPUR NIH !",
+	// 	Tech:        []string{"js"},
+	// },
+	// {
+	// 	Title:       "GOKIL SIH INI CUY !",
+	// 	Start:       "24/06/2023",
+	// 	End:         "27/06/2023",
+	// 	Duration:    "3 hari",
+	// 	Description: "LU KEREN GUA KEREN, KITA BERDUA ? KEREN !",
+	// 	Tech:        []string{"js"},
+	// },
+	// {
+	// 	Title:       "AZEEEEKKKK !",
+	// 	Start:       "24/06/2023",
+	// 	End:         "27/06/2023",
+	// 	Duration:    "3 hari",
+	// 	Description: "WAHHH GOKIL PISAN NIH KEKNYA !",
+	// 	Tech:        []string{"js"},
+	// },
 }
 
 func main() {
+	connection.DatabaseConnect()
+
 	e := echo.New()
 
 	e.Static("/public", "public")
@@ -77,15 +83,38 @@ func home(c echo.Context) error {
 	return tmpl.Execute(c.Response(), nil)
 }
 func myProject(c echo.Context) error {
+	data, _ := connection.Conn.Query(context.Background(), "SELECT id, name, start_date, end_date, duration, description, tech FROM tb_project")
+
+	fmt.Println(data)
+	var result []project
+	for data.Next() {
+		var each = project{}
+
+		err := data.Scan(&each.Id, &each.Title, &each.Start, &each.End, &each.Duration, &each.Description, &each.Tech)
+		if err != nil {
+			fmt.Println(err.Error())
+			return c.JSON(http.StatusInternalServerError, map[string]string{"Message": err.Error()})
+		}
+		fmt.Println(each)
+
+	
+		// each.Author = "Abel Dustin"
+
+		result = append(result, each)
+	}
+
+	fmt.Println(result)
+
+	projects := map[string]interface{}{
+		"Projects": result,
+	}
 	var tmpl, err = template.ParseFiles("views/my-project.html")
+	fmt.Println(projects)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
 
-	projects := map[string]interface{}{
-		"projects": dataProject,
-	}
 
 	return tmpl.Execute(c.Response(), projects)
 }
@@ -153,12 +182,14 @@ func addedProject(c echo.Context) error {
 	desc := c.FormValue("input-deskripsi")
 	Tech := c.Request().Form["Tech"]
 
-	startDate, err := time.Parse("2006-01-02", start)
+	startDate, err := time.Parse("2006-01-02T00:00:00.000Z", start)
 	if err != nil {
 		return err
 	}
 
-	endDate, err := time.Parse("2006-01-02", end)
+	fmt.Println(startDate)
+
+	endDate, err := time.Parse("2006-01-02T00:00:00.000Z", end)
 	if err != nil {
 		return err
 	}
@@ -190,8 +221,8 @@ func addedProject(c echo.Context) error {
 
 	var newProject = project{
 		Title:       name,
-		Start:       start,
-		End:         end,
+		Start:       startDate,
+		End:         endDate,
 		Duration:    durationOutput,
 		Description: desc,
 		Tech:        Tech,
